@@ -1,0 +1,87 @@
+# depslib dependency file v1.0
+1418392825 source:c:\users\kentscientist\documents\self studies\snake game\main.c
+	<stdio.h>
+	<stdlib.h>
+	<windows.h>
+	<conio.h>
+	"sometools.h"
+	"fence.h"
+	"snake.h"
+	"food.h"
+
+1418361087 c:\users\kentscientist\documents\self studies\snake game\sometools.h
+	<windows.h>
+
+1418312792 c:\users\kentscientist\documents\self studies\snake game\fence.h
+	<windows.h>
+
+1418361390 source:c:\users\kentscientist\documents\self studies\snake game\sometools.c
+	"sometools.h"
+	<stdlib.h>
+
+1418365180 source:c:\users\kentscientist\documents\self studies\snake game\fence.c
+	"fence.h"
+	"sometools.h"
+	<stdio.h>
+
+1418392798 c:\users\kentscientist\documents\self studies\snake game\snake.h
+	<windows.h>
+
+1418393010 source:c:\users\kentscientist\documents\self studies\snake game\snake.c
+	"snake.h"
+	<stdio.h>
+	"sometools.h"
+	<stdlib.h>
+	<conio.h>
+
+1418393817 source:c:\users\kentscientist\documents\self studies\snake game\food.c
+	"food.h"
+	"snake.h"
+	<stdio.h>
+	<stdlib.h>
+	<windows.h>
+	"sometools.h"
+
+1418393716 c:\users\kentscientist\documents\self studies\snake game\food.h
+	"snake.h"
+	<windows.h>
+
+1418365182 source:f:\files\shool files\snake game\fence.c
+	"fence.h"
+	"sometools.h"
+	<stdio.h>
+
+1418312794 f:\files\shool files\snake game\fence.h
+	<windows.h>
+
+1418361088 f:\files\shool files\snake game\sometools.h
+	<windows.h>
+
+1418361392 source:f:\files\shool files\snake game\sometools.c
+	"sometools.h"
+	<stdlib.h>
+
+1418671868 source:f:\files\shool files\snake game\main.c
+	<stdio.h>
+	<stdlib.h>
+	<windows.h>
+	<conio.h>
+	"sometools.h"
+	"fence.h"
+	"snake.h"
+	"food.h"
+
+1418671868 f:\files\shool files\snake game\snake.h
+	<windows.h>
+
+1418671868 f:\files\shool files\snake game\food.h
+	"snake.h"
+	<windows.h>
+
+1418671868 source:f:\files\shool files\snake game\snake.c
+	"snake.h"
+	<stdio.h>
+	"sometools.h"
+	<stdlib.h>
+	<conio.h>
+
