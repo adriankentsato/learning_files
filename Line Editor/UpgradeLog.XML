@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?><?xml-stylesheet type='text/xsl' href='_UpgradeReport_Files/UpgradeReport.xslt'?><UpgradeLog>
+<Properties><Property Name="Solution" Value="howto_line_editor">
+</Property><Property Name="Solution File" Value="C:\Users\Aljeanette Arenilla\Downloads\howto_line_editor\howto_line_editor.sln">
+</Property><Property Name="Date" Value="Tuesday, December 8, 2015">
+</Property><Property Name="Time" Value="19:54 PM">
+</Property></Properties><Event ErrorLevel="0" Project="howto_line_editor" Source="howto_line_editor.csproj" Description="Project converted successfully">
+</Event><Event ErrorLevel="3" Project="howto_line_editor" Source="howto_line_editor.csproj" Description="Converted">
+</Event><Event ErrorLevel="0" Project="" Source="howto_line_editor.sln" Description="Solution converted successfully">
+</Event><Event ErrorLevel="3" Project="" Source="howto_line_editor.sln" Description="Converted">
+</Event><Event ErrorLevel="0" Project="howto_line_editor" Source="howto_line_editor.csproj" Description="Scan complete: Upgrade not required for project files.">
+</Event></UpgradeLog>
