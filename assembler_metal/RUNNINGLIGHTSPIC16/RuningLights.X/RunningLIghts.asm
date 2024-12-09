@@ -1,0 +1,93 @@
+#include "p16f84a.inc"
+
+; CONFIG
+; __config 0xFFF1
+ __CONFIG _FOSC_XT & _WDTE_OFF & _PWRTE_ON & _CP_OFF
+
+RES_VECT  CODE    0x0000            ; processor reset vector
+    GOTO    START                   ; go to beginning of program
+    
+CBLOCK 0x0C
+    NUM
+    ENDC
+
+; TODO ADD INTERRUPTS HERE IF USED
+
+MAIN_PROG CODE                      ; let linker place main program
+
+START
+MAIN:
+    BCF STATUS, RP0    ; GOTO BANK 0
+    CLRF PORTA	    ; CLEAR OUTPUT OF PORT A
+    CLRF PORTB	    ; CLEAR OUPUT OF PORT B
+    BSF STATUS, RP0    ; GOTO BANK 1
+    BCF OPTION_REG, NOT_RBPU ; ENABLE PULL-UP RESISTORS
+    MOVLW 0xFF      
+    CLRF TRISA	    ; SET ALL PINS OF PORT A TO INPUT
+    MOVLW 0x00	    
+    MOVWF TRISB	    ; SET ALL PINS OF PORT B TO OUTPUT
+    BCF STATUS, RP0    ; GOTO BANK 0
+    
+CHECKA BTFSS PORTA, RB0 ;CHECK PORTA RB0
+    GOTO IFZERORB0A ;RB0 = 0
+    GOTO IFZERORB0B ;RB0 = 1
+    
+IFZERORB0A BTFSS PORTA, RB1 ;RB0 = 0 ; CHECK PORTA RB1
+    GOTO IFZERORB1A ;RB0 = 0 RB1 = 0
+    GOTO IFZERORB1B ;RB0 = 0 RB1 = 1
+    
+IFZERORB0B BTFSS PORTA, RB1
+    GOTO IFZERORB1C ;RB0 = 1 RB1 = 0
+    GOTO IFZERORB1D ;RB0 = 1 RB1 = 1
+    
+    ;RB0 = 0 RB1 = 0
+IFZERORB1A MOVLW 0x00
+	MOVWF PORTB
+	GOTO CHECKA
+
+    ;RB0 = 0 RB1 = 1
+IFZERORB1B MOVF PORTB, W 
+	CALL LOOKUPT ;Call delayhere nga label
+	MOVWF PORTB    ;Write to PORTB
+	CALL DELAY
+	CLRF PORTB
+	GOTO CHECKA
+	
+    ;RB0 = 1 RB1 = 0
+IFZERORB1C MOVF PORTB, W 
+	CALL LOOKUPT ;Call delayhere nga label
+	MOVWF PORTB    ;Write to PORTB
+	CALL DELAY
+	CLRF PORTB
+	GOTO CHECKA
+    
+    ;RB0 = 1 RB1 = 1
+IFZERORB1D 
+	CALL LOOKUPT ;Call LOOKUPT nga label
+	MOVWF PORTB    ;Write to PORTB
+	CALL DELAY
+	CLRF PORTB
+	GOTO CHECKA
+    
+LOOKUPT ADDWF PCL, F
+	RETLW 0x00
+	RETLW 0x01
+	RETLW 0x02
+	RETLW 0x03
+	RETLW 0x04
+	RETLW 0x05
+	RETLW 0x06
+	RETLW 0x07
+	
+DELAY MOVLW 0x01 ; 1100 1100 ;load number
+      MOVWF NUM   ; CounterA
+     
+DECR  DECFSZ NUM, F ; Decrement CounterA
+      GOTO DECR     ; Loop ;2 Instruction Cycles
+      RETURN
+	
+GOTO CHECKA
+    
+    GOTO $                          ; loop forever
+
+    END

@@ -1,0 +1,76 @@
+#include "p16f84a.inc"
+
+; CONFIG
+; __config 0xFFF1
+ __CONFIG _FOSC_XT & _WDTE_OFF & _PWRTE_ON & _CP_OFF
+ 
+ ORG 0x0000 ;reset vector
+ 
+ goto START
+ 
+ ORG 0x0004 ;interrupt vector
+
+ ;BY ALJ
+
+START
+
+    BCF STATUS, RP0 ;BANK 0
+    CLRF PORTB
+    CLRF PORTA
+    
+    BSF STATUS, RP0 ;BANK1
+    BCF OPTION_REG, NOT_RBPU ;WEAK PULL-UP
+    
+    MOVLW 0x80
+    MOVWF TRISB
+    MOVLW 0xF0
+    MOVWF TRISA
+ 
+    BCF STATUS, RP0 ;BANK 0
+    
+    ;BCD 0 - F ; FF = F ; 00 = 0
+
+    ;BTFSS ALWAYS FALSE FIRST
+LOOP BTFSS PORTA, RA4 ; TEST A
+     goto FALSEA ; A = 0
+     goto TRUEA ; A = 1
+     
+FALSEA BTFSS PORTB, RB7 ; TEST B
+      goto AZBZ ; A = 0 B = 0
+      goto AZB1 ; A = 0 B = 1
+      
+TRUEA BTFSS PORTB, RB7 ; TEST B
+      goto A1BZ ; A = 1 B = 0
+      goto A1B1 ; A = 1 B = 1
+      
+	; A = 1 B = 1
+A1B1	MOVLW 0x00  ; PORTB = 8 COMMON ANODE
+        MOVWF PORTB
+	MOVLW 0x01  ; PORTA = 1
+	MOVWF PORTA
+	GOTO LOOP
+	 
+	; A = 1 B = 0
+A1BZ	MOVLW 0xA4  ; PORTB = 2 COMMON ANODE
+	MOVWF PORTB
+	MOVLW 0x01  ; PORTA = 1
+	MOVWF PORTA
+	GOTO LOOP
+	 
+	; A = 0 B = 1
+AZB1	MOVLW 0x82 ; PORTB = 6 COMMON ANODE
+	MOVWF PORTB
+	MOVLW 0x00 ; PORTA = 0
+	MOVWF PORTA
+	GOTO LOOP
+	
+	; A = 0 B = 0
+AZBZ	MOVLW 0x40 ; PORTB = 0 COMMON ANODE
+	MOVWF PORTB
+	MOVLW 0x00 ; PORTA = 0
+	MOVWF PORTA
+	GOTO LOOP
+ 
+    ;GOTO $                          ; loop forever
+
+    END
